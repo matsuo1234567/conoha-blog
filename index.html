@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech News</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Tech News</h1>
+        <nav>
+            <ul>
+                <li><a href="#">ホーム</a></li>
+                <li><a href="#">記事一覧</a></li>
+                <li><a href="#">連絡先</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="articles">
+        <!-- ここに記事が動的に読み込まれる -->
+    </main>
+    <footer>
+        <p>&copy; 2024 Tech News</p>
+        <p>連絡先: info@technews.example.com</p>
+    </footer>
+    <script>
+        // 動的に記事を読み込む関数
+        function loadArticles() {
+            const articles = ['article1.md', 'article2.md'];
+            const container = document.getElementById('articles');
+
+            articles.forEach(article => {
+                fetch(article)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        // markedを正しく使用する
+                        const articleHtml = marked.parse(data);
+                        const articleElement = document.createElement('div');
+                        articleElement.classList.add('article');
+                        articleElement.innerHTML = articleHtml;
+                        container.appendChild(articleElement);
+                    })
+                    .catch(error => console.error('Error loading article:', error));
+            });
+        }
+
+        // ページロード時に記事を読み込む
+        window.onload = loadArticles;
+    </script>
+</body>
+</html>
