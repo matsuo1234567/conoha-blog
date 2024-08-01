@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest 
 
     steps:
       - name: Checkout code
@@ -20,8 +20,8 @@ jobs:
 
       - name: Deploy code to VPS
         run: |
-          ssh -o StrictHostKeyChecking=no -i /tmp/ssh_private_key nanami@160.251.234.58 "
+          ssh -o StrictHostKeyChecking=no -i /tmp/ssh_private_key nanami@160.251.234.58 << EOF
             cd /var/www/tech773.com/conoha-blog &&
             git pull origin main &&
             sudo systemctl restart apache2
-          "
+          EOF
