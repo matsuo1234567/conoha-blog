@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>Tech News</h1>
+        <h1>Tech Blog</h1>
         <nav>
             <ul>
                 <li><a href="#">ホーム</a></li>
@@ -19,14 +19,12 @@
         </nav>
     </header>
     <main id="articles">
-        <!-- ここに記事が動的に読み込まれる -->
     </main>
     <footer>
         <p>&copy; 2024 Tech News</p>
         <p>連絡先: info@technews.example.com</p>
     </footer>
     <script>
-        // 動的に記事を読み込む関数
         function loadArticles() {
             const articles = ['article1.md', 'article2.md'];
             const container = document.getElementById('articles');
@@ -40,7 +38,6 @@
                         return response.text();
                     })
                     .then(data => {
-                        // markedを正しく使用する
                         const articleHtml = marked.parse(data);
                         const articleElement = document.createElement('div');
                         articleElement.classList.add('article');
@@ -50,8 +47,6 @@
                     .catch(error => console.error('Error loading article:', error));
             });
         }
-
-        // ページロード時に記事を読み込む
         window.onload = loadArticles;
     </script>
 </body>
